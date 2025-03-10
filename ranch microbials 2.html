@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ranch Microbials - Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+  
+        :root {
+              --primary: #4CAF50;
+              --secondary: #51be55;
+              --dark: #163617;
+              --light: #f8fafc;
+              --transition: all 0.3s ease;
+              --text-dark: #1a1a1a;
+              --text-medium: #2d2d2d;
+              --text-light: #4a4a4a;
+              --background-light: #f8f9fa;
+              --line-height: 1.8;
+              --heading-spacing: 0.5rem;
+              --primary-color: #2c642e;
+              --secondary-color: #4a934c;
+              --spacing-unit: clamp(1rem, 2vw, 2rem);
+              --card-width: min(100%, 350px);
+        }
+  
+        html {
+              scroll-behavior: smooth;
+              font-size: 16px;
+              -webkit-text-size-adjust: 100%;
+          }
+  
+          body {
+              font-family: 'Inter', 'Segoe UI', sans-serif;
+              line-height: var(--line-height);
+              color: var(--text-dark);
+              background-color: var(--background-light);
+          }
+  
+          /* Navigation Styles */
+          .navbar {
+              position: fixed;
+              top: 0;
+              width: 100%;
+              background: rgba(216, 245, 210, 0.95);
+              backdrop-filter: blur(10px);
+              padding: 1rem 5%;
+              z-index: 1000;
+              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          }
+  
+          .nav-container {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              max-width: 1200px;
+              margin: 0 auto;
+          }
+  
+          .logo {
+              font-size: 1.5rem;
+              font-weight: 700;
+              color: var(--primary);
+              text-decoration: none;
+              transition: var(--transition);
+          }
+  
+          .nav-menu {
+              display: flex;
+              gap: 2rem;
+              list-style: none;
+          }
+  
+          .nav-link {
+              color: var(--dark);
+              text-decoration: none;
+              font-weight: 500;
+              transition: var(--transition);
+              position: relative;
+          }
+  
+          .nav-link::after {
+              content: '';
+              position: absolute;
+              bottom: -5px;
+              left: 0;
+              width: 0;
+              height: 2px;
+              background: var(--primary);
+              transition: var(--transition);
+          }
+  
+          .nav-link:hover::after {
+              width: 100%;
+          }
+  
+          .hamburger {
+              display: none;
+              cursor: pointer;
+          }
+  
+          /* Hero Section */
+          .hero {
+              position: relative;
+              min-height: 100vh;
+              display: flex;
+              align-items: center;
+              padding: 6rem 5% 4rem;
+              background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+              overflow: hidden;
+          }
+  
+          #particles {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              z-index: 1;
+          }
+  
+          .hero-content {
+              position: relative;
+              z-index: 2;
+              max-width: 1200px;
+              margin: 0 auto;
+              text-align: center;
+              animation: fadeIn 1s ease-out;
+          }
+  
+          .hero-logo {
+              margin-bottom: 2.5rem;
+              animation: floatAnimation 3s ease-in-out infinite;
+              display: flex;
+              justify-content: center;
+          }
+  
+          .main-logo {
+              width: 150px;
+              height: 150px;
+              border-radius: 50%;
+              box-shadow: 0 8px 32px rgba(59, 138, 62, 0.2);
+              border: 3px solid #fff;
+              transition: transform 0.3s ease;
+              object-fit: contain;
+              padding: 0;
+              background: white;
+          }
+  
+          .main-logo:hover {
+              transform: scale(1.05);
+              box-shadow: 0 12px 36px rgba(59, 138, 62, 0.25);
+          }
+  
+          /* Floating animation for the logo */
+          @keyframes floatAnimation {
+              0% {
+                  transform: translateY(0);
+              }
+              50% {
+                  transform: translateY(-8px);
+              }
+              100% {
+                  transform: translateY(0);
+              }
+          }
+  
+          /* Hero text styles */
+          .hero h1 {
+              font-size: 3.5rem;
+              margin-bottom: 1rem;
+              color: var(--primary);
+              text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+              font-weight: 700;
+              letter-spacing: -0.5px;
+          }
+  
+          .hero p {
+              font-size: 1.25rem;
+              color: var(--text-dark);
+              margin-bottom: 2rem;
+              max-width: 600px;
+              margin-left: auto;
+              margin-right: auto;
+              line-height: 1.6;
+          }
+  
+          /* Button Styles */
+          .btn {
+              display: inline-block;
+              padding: 1rem 2rem;
+              background: var(--primary);
+              color: white;
+              text-decoration: none;
+              border-radius: 8px;
+              transition: var(--transition);
+              border: none;
+              cursor: pointer;
+              font-size: 1.1rem;
+              font-weight: 600;
+              letter-spacing: 0.02em;
+          }
+  
+          .btn:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+          }
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(var(--card-width), 1fr));
+            gap: var(--spacing-unit);
+            padding: var(--spacing-unit);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: var(--spacing-unit);
+            transition: transform 0.3s ease;
+            touch-action: manipulation;
+            height: 100%;
+        }
+
+        .product-card:hover,
+        .product-card:focus-within {
+            transform: translateY(-5px);
+        }
+
+        .product-card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .product-card p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-description {
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+        }
+
+       
+
+         /* Animations */
+         @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 4rem;
+                transition: var(--transition);
+                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .hero {
+                padding-top: 100px;
+            }
+
+            .main-logo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 4rem 5% 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -0.5rem;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-section p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            opacity: 0.9;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            background: rgba(255, 255, 255, 0.1);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .contact-info i {
+            width: 20px;
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+        }
+
+        /* Optional: Add a subtle gradient overlay to enhance image visibility */
+        .hero-logo::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 50%, rgba(255, 255, 255, 0.1) 100%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--heading-spacing);
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-medium);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        /* Overview Section */
+        .overview-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, rgba(213, 233, 190, 0.2), rgba(248, 246, 224, 0.2));
+        }
+
+        .overview-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .overview-text h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .overview-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+
+        .key-benefits {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-item i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .overview-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .product-categories {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-card h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-item h4 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-item p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .product-item ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-item ul li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-item ul li::before {
+            content: '•';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+
+        .featured {
+            background: linear-gradient(135deg, #f0f9ff, #e6f7ff);
+            border: 2px solid var(--primary);
+            position: relative;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .overview-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .key-benefits {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .overview-text h3 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Premium Section Enhancements */
+        .premium-section {
+            padding: var(--spacing-unit);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            border-radius: 12px;
+            margin: var(--spacing-unit);
+        }
+
+        .premium-section .product-grid {
+            gap: 3rem;
+        }
+
+        .premium-section .featured {
+            background: white;
+            border: none;
+            box-shadow: 0 8px 30px rgba(59, 138, 62, 0.15);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-section .featured:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(59, 138, 62, 0.2);
+        }
+
+        .premium-section .featured::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1rem;
+            right: -2rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.5rem 2rem;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .featured:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .premium-section h4 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .premium-section h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .premium-section p {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .premium-section ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .premium-section ul li {
+            padding-left: 1.8rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+            color: #444;
+        }
+
+        .premium-section ul li::before {
+            content: '✓';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .premium-section {
+                padding: var(--spacing-unit) 0;
+                border-radius: 0;
+            }
+
+            .premium-section .product-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .featured-badge {
+                transform: rotate(0);
+                right: 1rem;
+                top: 1rem;
+                padding: 0.3rem 1rem;
+            }
+        }
+
+        /* List improvements */
+        .benefits-list {
+            padding-left: 0;
+        }
+
+        .benefits-list li {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .benefits-list li::before {
+            content: '•';
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0.5rem;
+        }
+
+        /* Premium section improvements */
+        .premium-showcase {
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            padding: 5rem 0;
+        }
+
+        .premium-card {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .premium-card .product-content {
+            padding: 2.5rem;
+        }
+
+        .premium-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .premium-card p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-medium);
+            margin-bottom: 2rem;
+        }
+
+        /* Content container improvements */
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .text-block {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-medium);
+        }
+
+        /* Table improvements */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        th, td {
+            padding: 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        td {
+            color: var(--text-medium);
+        }
+
+        /* Print-friendly styles */
+        @media print {
+            body {
+                font-size: 12pt;
+                line-height: 1.6;
+            }
+
+            .section-title {
+                font-size: 18pt;
+            }
+
+            .product-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Responsive Typography */
+        @media (max-width: 768px) {
+            html {
+                font-size: 14px;
+            }
+        }
+
+        /* Product Grid Layout */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(var(--card-width), 1fr));
+            gap: var(--spacing-unit);
+            padding: var(--spacing-unit);
+        }
+
+        /* Product Cards */
+        .product-card {
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: var(--spacing-unit);
+            transition: transform 0.3s ease;
+            touch-action: manipulation;
+            height: 100%;
+        }
+
+        .product-card:hover,
+        .product-card:focus-within {
+            transform: translateY(-5px);
+        }
+
+        /* Touch-friendly elements */
+        .touch-target {
+            min-height: 44px;
+            min-width: 44px;
+            padding: 12px;
+            margin: 4px;
+            cursor: pointer;
+        }
+
+        /* Product Images */
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .product-image {
+                height: 150px;
+            }
+        }
+
+        /* Premium Section */
+        .premium-section {
+            padding: var(--spacing-unit);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            border-radius: 12px;
+            margin: var(--spacing-unit);
+        }
+
+        @media (max-width: 768px) {
+            .premium-section {
+                margin: var(--spacing-unit) 0;
+                border-radius: 0;
+            }
+        }
+
+        /* Product Features List */
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+        }
+
+        /* Responsive Tables */
+        .specs-table {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        @media (max-width: 768px) {
+            .specs-table {
+                margin: 1rem -1rem;
+                padding: 0 1rem;
+            }
+        }
+
+        /* Mobile Accordion */
+        .mobile-accordion {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-accordion {
+                display: block;
+            }
+            
+            .desktop-content {
+                display: none;
+            }
+            
+            .accordion-header {
+                padding: 1rem;
+                background: var(--primary-color);
+                color: white;
+                border-radius: 8px;
+                margin-bottom: 0.5rem;
+                position: relative;
+            }
+            
+            .accordion-content {
+                padding: 1rem;
+                display: none;
+            }
+            
+            .accordion-content.active {
+                display: block;
+            }
+        }
+
+        /* Touch Feedback */
+        .touch-feedback {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .touch-feedback::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: inherit;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .touch-feedback:active::after {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* Form Elements */
+        input,
+        select,
+        textarea {
+            font-size: 16px;
+            padding: 12px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn:hover,
+        .btn:focus {
+            background: var(--secondary-color);
+        }
+
+        /* Animation Optimization */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Ranch Microbials</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>           
+                <li><a href="mailto:ranchmicrobials1@gmail.com" class="nav-link">Contact</a></li>
+                <li><a href="review rm.html" class="nav-link">Reviews</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <canvas id="particles"></canvas>
+        <div class="hero-content">
+            <!-- Updated logo container -->
+            <div class="hero-logo">
+                <img src="vscode/IMG-20230619-WA003.jpg" alt="Ranch Microbials Logo" class="main-logo">
+            </div>
+            <h1>Welcome to Ranch Microbials</h1>
+            <p>Innovating for sustainable agriculture through advanced microbial solutions.</p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="overview-section">
+        <div class="container">
+            <h2 class="section-title">Our Microbial Solutions</h2>
+            <div class="overview-content">
+                <div class="overview-text">
+                    <h3>Revolutionizing Agriculture Through Microbial Innovation</h3>
+                    <p>At Ranch Microbials, we are dedicated to revolutionizing industrial microbe applications for sustainable agriculture, kitchen gardens, and lawns. Our advanced microbial solutions enrich soil health, enhance nutrient absorption, and promote plant resilience, leading to higher yields and healthier crops. Whether you're a large-scale farmer or a home gardening enthusiast, our eco-friendly microbes work naturally to boost growth, improve soil fertility, and reduce dependency on chemical fertilizers. With a commitment to sustainability and innovation, we strive to create a happier, more productive farming experience—because better soil means better harvests and a greener planet!</p>
+                    
+                    <div class="key-benefits">
+                        <div class="benefit-item">
+                            <i class="fas fa-seedling"></i>
+                            <h4>Enhanced Growth</h4>
+                            <p>Promote robust plant development and increased yields</p>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-leaf"></i>
+                            <h4>Soil Health</h4>
+                            <p>Improve soil structure and nutrient availability</p>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Natural Protection</h4>
+                            <p>Strengthen plant immunity against diseases</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="overview-image">
+                    <img src="vscode/IMG-20230619-WA0035.jpg" alt="Microbial Solutions">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <h2 class="section-title">Our Product Range</h2>
+            
+            <!-- Product Categories -->
+            <div class="product-categories">
+                <!-- Nitrogen Fixers -->
+                <div class="category-card">
+                    <h3>Nitrogen Fixing Bacteria</h3>
+                    <div class="product-grid">
+                        <div class="product-item">
+                            <h4>Azotobacter</h4>
+                            <p>Free-living nitrogen-fixing bacteria that enhance soil fertility and plant growth.</p>
+                            <ul class="benefits-list">
+                                <li>Improves nitrogen content in soil</li>
+                                <li>Promotes plant growth</li>
+                                <li>Enhances seed germination</li>
+                            </ul>
+                        </div>
+                        <div class="product-item">
+                            <h4>Azospirillum</h4>
+                            <p>Associates with plant roots to fix atmospheric nitrogen and promote growth.</p>
+                            <ul class="benefits-list">
+                                <li>Fixes atmospheric nitrogen</li>
+                                <li>Produces growth hormones</li>
+                                <li>Improves root development</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nutrient Solubilizers -->
+                <div class="category-card">
+                    <h3>Nutrient Solubilizing Bacteria</h3>
+                    <div class="product-grid">
+                        <div class="product-item">
+                            <h4>Phosphate Solubilizing Bacteria</h4>
+                            <p>Enhances phosphorus availability in soil for better plant uptake.</p>
+                            <ul class="benefits-list">
+                                <li>Solubilizes fixed phosphorus</li>
+                                <li>Improves nutrient uptake</li>
+                                <li>Enhances crop yield</li>
+                            </ul>
+                        </div>
+                        <div class="product-item">
+                            <h4>Potassium Solubilizing Bacteria</h4>
+                            <p>Makes potassium more available for plant absorption.</p>
+                            <ul class="benefits-list">
+                                <li>Releases bound potassium</li>
+                                <li>Improves soil fertility</li>
+                                <li>Enhances plant growth</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Special Products -->
+                <div class="category-card premium-section">
+                    <h3 class="glow-text">Premium Solutions</h3>
+                    <div class="product-grid">
+                        <div class="product-item featured glow-card">
+                            <div class="featured-badge glow-badge">Featured</div>
+                            <h4 class="glow-text">Nutra Booster</h4>
+                            <p>Our flagship product combining multiple beneficial microorganisms.</p>
+                            <ul class="benefits-list">
+                                <li>Complete nutrient management</li>
+                                <li>Enhanced crop productivity</li>
+                                <li>Improved soil health</li>
+                                <li>10-15% increase in yield</li>
+                            </ul>
+                            <img src="vscode/Nutra Booster 28.6.23.png" alt="Nutra Booster" class="product-image glow-image">
+                        </div>
+
+                        <div class="product-item featured glow-card">
+                            <div class="featured-badge glow-badge">Featured</div>
+                            <h4 class="glow-text">Seed Soldiers</h4>
+                            <p>Advanced microbial formulation for superior seed treatment.</p>
+                            <ul class="benefits-list">
+                                <li>Boosts germination and root growth</li>
+                                <li>Enhances soil fertility</li>
+                                <li>Strengthens plant immunity</li>
+                                <li>10-15% increase in crop productivity</li>
+                            </ul>
+                            <img src="vscode/IMG-20250126-WA0049.jpg" alt="Seed Soldiers" class="product-image glow-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Company Info -->
+            <div class="footer-section">
+                <h3>Ranch Microbials</h3>
+                <p>Innovating for sustainable agriculture through advanced microbial solutions.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="ranch microbials 2.html">Services</a></li>
+                    <li><a href="review rm.html">Reviews</a></li>
+                   
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul class="contact-info">
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:ranchmicrobials1@gmail.com">ranchmicrobials1@gmail.com</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+1234567890">+91 94684-19058 </a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 Ranch Microbials. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Hamburger Menu Toggle
+      const hamburger = document.querySelector('.hamburger');
+      const navMenu = document.querySelector('.nav-menu');
+
+      hamburger.addEventListener('click', () => {
+          navMenu.classList.toggle('active');
+      });
+
+      // Close menu when clicking a link
+      document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+              navMenu.classList.remove('active');
+          });
+      });
+
+      // Section Animation
+      const sections = document.querySelectorAll('.section');
+      
+      const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.classList.add('visible');
+              }
+          });
+      }, { threshold: 0.1 });
+
+      sections.forEach(section => {
+          observer.observe(section);
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+          if (!e.target.closest('.nav-container')) {
+              navMenu.classList.remove('active');
+          }
+      });
+      const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Particle class
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Reset particle if it goes off screen
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(59, 138, 62, ${this.opacity})`; // Green color matching your theme
+                ctx.fill();
+            }
+        }
+
+        // Create particle array
+        const particles = [];
+        const particleCount = 50; // Adjust number of particles
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Animation function
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw particles
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            // Draw connections between nearby particles
+            particles.forEach((particle1, i) => {
+                particles.slice(i + 1).forEach(particle2 => {
+                    const dx = particle1.x - particle2.x;
+                    const dy = particle1.y - particle2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) { // Maximum distance for connection
+                        ctx.beginPath();
+                        ctx.moveTo(particle1.x, particle1.y);
+                        ctx.lineTo(particle2.x, particle2.y);
+                        const opacity = (100 - distance) / 1000;
+                        ctx.strokeStyle = `rgba(59, 138, 62, ${opacity})`; // Green color matching your theme
+                        ctx.stroke();
+                    }
+                });
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        // Start animation
+        animate();
+
+        // Optional: Add mouse interaction
+        let mouse = {
+            x: null,
+            y: null,
+            radius: 150
+        };
+
+        canvas.addEventListener('mousemove', function(event) {
+            mouse.x = event.x;
+            mouse.y = event.y;
+
+            // Add particle movement based on mouse position
+            particles.forEach(particle => {
+                const dx = mouse.x - particle.x;
+                const dy = mouse.y - particle.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < mouse.radius) {
+                    const force = (mouse.radius - distance) / mouse.radius;
+                    const angle = Math.atan2(dy, dx);
+                    particle.x -= Math.cos(angle) * force * 2;
+                    particle.y -= Math.sin(angle) * force * 2;
+                }
+            });
+        });
+
+        // Reset mouse position when mouse leaves canvas
+        canvas.addEventListener('mouseleave', function() {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // Stats Counter Animation
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            
+            stats.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16); // 60fps
+                let current = 0;
+
+                const updateCount = () => {
+                    if (current < target) {
+                        current += increment;
+                        stat.textContent = Math.round(current);
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        stat.textContent = target;
+                    }
+                };
+
+                updateCount();
+            });
+        }
+
+        // Intersection Observer for triggering animations
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('stats-section')) {
+                        animateStats();
+                    }
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe sections
+        document.querySelectorAll('.features-section, .stats-section').forEach(section => {
+            statsObserver.observe(section);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Accordion Handler
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const isActive = content.classList.contains('active');
+                    
+                    // Close all accordion items
+                    document.querySelectorAll('.accordion-content').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // Open clicked item if it wasn't active
+                    if (!isActive) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+
+            // Touch Feedback
+            const touchElements = document.querySelectorAll('.touch-target, .btn, .product-card');
+            
+            touchElements.forEach(element => {
+                element.addEventListener('touchstart', function(e) {
+                    this.style.opacity = '0.7';
+                }, { passive: true });
+
+                element.addEventListener('touchend', function(e) {
+                    this.style.opacity = '1';
+                }, { passive: true });
+            });
+
+            // Handle Images
+            const images = document.querySelectorAll('img');
+            
+            images.forEach(img => {
+                img.addEventListener('load', function() {
+                    this.classList.add('loaded');
+                });
+                
+                // Fallback if image fails to load
+                img.addEventListener('error', function() {
+                    this.src = 'placeholder.jpg'; // Replace with your placeholder image
+                });
+            });
+
+            // Lazy Loading
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            observer.unobserve(img);
+                        }
+                    });
+                });
+
+                document.querySelectorAll('img[data-src]').forEach(img => {
+                    imageObserver.observe(img);
+                });
+            }
+
+            // Handle viewport height for mobile browsers
+            function setVH() {
+                let vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            }
+
+            setVH();
+            window.addEventListener('resize', setVH);
+
+            // Optimize scroll performance
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        // Handle scroll-based animations/effects
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+        });
+    </script>
+    
+</body>
+</html>

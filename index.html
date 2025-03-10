@@ -1,0 +1,2507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ranch Microbials</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4CAF50;
+            --secondary: #51be55;
+            --dark: #163617;
+            --light: #f8fafc;
+            --transition: all 0.3s ease;
+            --primary-green: #2c642e;
+            --secondary-green: #3b8a3e;
+            --accent-teal: #20B2AA;
+            --accent-sage: #9DC183;
+            --accent-yellow: #FFD700;
+            --accent-coral: #FF7F50;
+            --text-light: #F5F5F5;
+            --text-dark: #1a1a1a;
+            --header-height: 70px;
+            --mobile-padding: 1rem;
+            --desktop-padding: 2rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(216, 245, 210, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 5% 4rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            overflow: hidden;
+        }
+
+        #particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-logo {
+            margin-bottom: 2.5rem;
+            animation: floatAnimation 3s ease-in-out infinite;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            box-shadow: 0 8px 32px rgba(59, 138, 62, 0.2);
+            border: 3px solid #fff;
+            transition: transform 0.3s ease;
+            object-fit: contain;
+            padding: 0;
+            background: white;
+        }
+
+        .main-logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 36px rgba(59, 138, 62, 0.25);
+        }
+
+        /* Floating animation for the logo */
+        @keyframes floatAnimation {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero text styles */
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 5%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .box {
+            position: relative;
+            width: 320px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.5s;
+            z-index: 1;
+        }
+
+        .box::before {
+            content: ' ';
+            position: absolute;
+            top: 0;
+            left: 50px;
+            width: 50%;
+            height: 100%;
+            text-decoration: none;
+            background: #fff;
+            border-radius: 8px;
+            transform: skewX(15deg);
+            transition: 0.5s;
+        }
+
+        .box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50;
+            width: 50%;
+            height: 100%;
+            background: #fff;
+            border-radius: 8px;
+            transform: skewX(15deg);
+            transition: 0.5s;
+            filter: blur(30px);
+        }
+
+        .box:hover:before,
+        .box:hover:after {
+            transform: skewX(0deg) scaleX(1.3);
+        }
+
+        .box:nth-child(1)::before,
+        .box:nth-child(1)::after {
+            background: linear-gradient(315deg,#2E7D32, #043b0d );
+        }
+
+        .box:nth-child(2)::before,
+        .box:nth-child(2)::after {
+            background: linear-gradient(315deg,#FFD700, #2E7D32 );
+        }
+
+        .box:nth-child(3)::before,
+        .box:nth-child(3)::after {
+            background: linear-gradient(315deg, #FF8C00, #FFD700);
+        }
+
+        .box span {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .box span::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transition: 0.1s;
+            animation: animate 2s ease-in-out infinite;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08)
+        }
+
+        .box span::before {
+            top: -40px;
+            left: 40px;
+            width: 50px;
+            height: 50px;
+            opacity: 1;
+        }
+
+        .box span::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transition: 0.5s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            animation-delay: -1s;
+        }
+
+        .box span:after {
+            bottom: -40px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            opacity: 1;
+        }
+
+        .box .content {
+            position: relative;
+            width: 290px;
+            height: 354px;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1;
+            transform: 0.5s;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box .content h2 {
+            font-size: 20px;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 4rem;
+                transition: var(--transition);
+                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .hero {
+                padding-top: 100px;
+            }
+
+            .main-logo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 4rem 5% 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -0.5rem;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-section p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            opacity: 0.9;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            background: rgba(255, 255, 255, 0.1);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .contact-info i {
+            width: 20px;
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+        }
+
+        /* Optional: Add a subtle gradient overlay to enhance image visibility */
+        .hero-logo::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 50%, rgba(255, 255, 255, 0.1) 100%);
+            pointer-events: none;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--mobile-padding);
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 var(--desktop-padding);
+            }
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, rgba(213, 233, 190, 0.2), rgba(248, 246, 224, 0.2));
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 4rem 0;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('path-to-your-pattern.png');
+            opacity: 0.1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-section,
+            .stats-section {
+                padding: 3rem 0;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Enhanced Navigation Items */
+        .nav-item {
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(
+                to right,
+                var(--accent-teal),
+                var(--accent-yellow),
+                var(--accent-coral)
+            );
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover::after {
+            transform: translateX(0);
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Scroll Animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-animate.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Enhanced Section Styles */
+        .section {
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-gradient {
+            background: linear-gradient(
+                135deg,
+                rgba(44, 100, 46, 0.1),
+                rgba(32, 178, 170, 0.1)
+            );
+        }
+
+        /* Animated Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(157, 193, 131, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(
+                to right,
+                var(--primary-green),
+                var(--accent-teal),
+                var(--accent-sage)
+            );
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Floating Elements Animation */
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        .float-element {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(
+                to right,
+                var(--primary-green),
+                var(--accent-teal),
+                var(--accent-yellow)
+            );
+            transform-origin: left;
+            transform: scaleX(0);
+            z-index: 1001;
+        }
+
+        /* Add these new animations */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Apply animations to elements */
+        .slide-left {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .slide-right {
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .scale-in {
+            animation: scaleIn 0.8s ease-out forwards;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-logo {
+            margin-bottom: 2rem;
+        }
+
+        .loader-logo img {
+            width: 120px;
+            height: auto;
+            animation: pulse 2s infinite;
+        }
+
+        .loader-progress {
+            width: 200px;
+            height: 3px;
+            background: rgba(45, 90, 39, 0.1);
+            border-radius: 3px;
+            margin: 1rem auto;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #2d5a27, #3b8a3e);
+            border-radius: 3px;
+            transition: width 2s ease-in-out;
+            animation: progressAnimation 2s ease-in-out forwards;
+        }
+
+        .loader-text {
+            color: #2d5a27;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            animation: fadeInOut 2s infinite;
+        }
+
+        /* Hide the main content initially */
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes progressAnimation {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        /* Loader Styles */
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            --color: #2d5a27;
+            --animation: 2s ease-in-out infinite;
+        }
+
+        .loader .circle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 20px;
+            height: 20px;
+            border: solid 2px var(--color);
+            border-radius: 50%;
+            margin: 0 10px;
+            background-color: transparent;
+            animation: circle-keys var(--animation);
+        }
+
+        .loader .circle .dot {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--color);
+            animation: dot-keys var(--animation);
+        }
+
+        .loader .circle .outline {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            animation: outline-keys var(--animation);
+        }
+
+        .circle:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .circle:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .circle:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+
+        .circle:nth-child(2) .dot {
+            animation-delay: 0.3s;
+        }
+
+        .circle:nth-child(3) .dot {
+            animation-delay: 0.6s;
+        }
+
+        .circle:nth-child(4) .dot {
+            animation-delay: 0.9s;
+        }
+
+        .circle:nth-child(1) .outline {
+            animation-delay: 0.9s;
+        }
+
+        .circle:nth-child(2) .outline {
+            animation-delay: 1.2s;
+        }
+
+        .circle:nth-child(3) .outline {
+            animation-delay: 1.5s;
+        }
+
+        .circle:nth-child(4) .outline {
+            animation-delay: 1.8s;
+        }
+
+        @keyframes circle-keys {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes dot-keys {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes outline-keys {
+            0% {
+                transform: scale(0);
+                outline: solid 20px var(--color);
+                outline-offset: 0;
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                outline: solid 0 transparent;
+                outline-offset: 20px;
+                opacity: 0;
+            }
+        }
+
+        /* Loading text animation */
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .loading-text {
+            animation: fadeInOut 2s ease-in-out infinite;
+        }
+
+        /* About & Mission Section */
+        .about-mission {
+            position: relative;
+            padding: 6rem 0;
+            overflow: hidden;
+        }
+
+        .section-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .bg-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(#2d5a27 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.1;
+        }
+
+        .bg-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(45, 90, 39, 0.05), rgba(59, 138, 62, 0.1));
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(45, 90, 39, 0.1);
+            color: #2d5a27;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .title-underline {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #2d5a27, #3b8a3e);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        /* About Content */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .experience-badge {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, rgba(45, 90, 39, 0.95), rgba(59, 138, 62, 0.95));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .experience-badge:hover {
+            transform: translateY(-5px);
+        }
+
+        .experience-badge .years {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-badge .text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .about-text {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .about-text:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight-title {
+            font-size: 1.8rem;
+            color: #2d5a27;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .highlight-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #2d5a27, #3b8a3e);
+            border-radius: 2px;
+        }
+
+        .main-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+
+        .key-points {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .point {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .point i {
+            color: #2d5a27;
+            font-size: 1.2rem;
+        }
+
+        .cta-about {
+            margin-top: 2rem;
+        }
+
+        .about-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #2d5a27, #3b8a3e);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .about-btn:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(45, 90, 39, 0.2);
+        }
+
+        .about-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .about-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .about-text {
+                padding: 1.5rem;
+            }
+
+            .highlight-title {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .main-text {
+                font-size: 1rem;
+            }
+
+            .point {
+                font-size: 1rem;
+            }
+
+            .experience-badge {
+                bottom: 1rem;
+                right: 1rem;
+                padding: 1rem;
+            }
+
+            .experience-badge .years {
+                font-size: 2rem;
+            }
+        }
+
+        .mission-section {
+            position: relative;
+            padding: 6rem 0;
+            background: #f8f9fa;
+            overflow: hidden;
+        }
+
+        .mission-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(45, 90, 39, 0.05), rgba(59, 138, 62, 0.1));
+        }
+
+        .pattern-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(#2d5a27 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+        }
+
+        .mission-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mission-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .mission-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(45, 90, 39, 0.1);
+            color: #2d5a27;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .mission-title {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .mission-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .mission-main-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .mission-main-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2d5a27, #3b8a3e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .icon-circle i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .mission-main-card h3 {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .mission-main-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .mission-points {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mission-points li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(45, 90, 39, 0.05);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .mission-points li:hover {
+            transform: translateX(10px);
+            background: rgba(45, 90, 39, 0.1);
+        }
+
+        .mission-points i {
+            color: #2d5a27;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .value-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(45, 90, 39, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover .card-icon {
+            background: #2d5a27;
+        }
+
+        .card-icon i {
+            font-size: 1.5rem;
+            color: #2d5a27;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover .card-icon i {
+            color: white;
+        }
+
+        .card-icon h4 {
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .card-icon p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mission-main-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mission-title {
+                font-size: 2rem;
+            }
+
+            .mission-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Animation for cards */
+        @keyframes cardFloat {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        .value-card:hover {
+            animation: cardFloat 3s ease-in-out infinite;
+        }
+
+        /* Base Responsive Styles */
+        :root {
+            --header-height: 70px;
+            --mobile-padding: 1rem;
+            --desktop-padding: 2rem;
+        }
+
+        /* Responsive Typography */
+        html {
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 14px;
+            }
+        }
+
+        /* Touch-friendly styles */
+        .touch-target {
+            min-height: 44px; /* Minimum touch target size */
+            min-width: 44px;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Layout */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--mobile-padding);
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 var(--desktop-padding);
+            }
+        }
+
+        /* Navigation Styles */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 1rem;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem;
+                text-align: center;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            padding-top: var(--header-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        /* Images */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Touch-friendly buttons */
+        button, 
+        .btn,
+        .nav-link {
+            padding: 1rem 1.5rem;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Form elements */
+        input,
+        textarea,
+        select {
+            font-size: 16px; /* Prevents zoom on iOS */
+            padding: 0.8rem;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Animations optimization */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Touch feedback */
+        .touch-feedback {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .touch-feedback::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: inherit;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .touch-feedback:active::after {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* Responsive spacing utilities */
+        .spacing {
+            padding: clamp(2rem, 5vw, 4rem) 0;
+        }
+
+        .margin-responsive {
+            margin: clamp(1rem, 3vw, 2rem) 0;
+        }
+
+        /* Media queries for different screen sizes */
+        /* Tablets */
+        @media (max-width: 1024px) {
+            .container {
+                max-width: 90%;
+            }
+        }
+
+        /* Mobile Landscape */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 80vh;
+            }
+        }
+
+        /* Mobile Portrait */
+        @media (max-width: 480px) {
+            .spacing {
+                padding: 2rem 0;
+            }
+        }
+
+        /* Handle different screen orientations */
+        @media screen and (orientation: landscape) and (max-height: 500px) {
+            .hero {
+                min-height: auto;
+                padding: 4rem 0;
+            }
+        }
+
+        /* High-DPI screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .hero-image {
+                image-rendering: -webkit-optimize-contrast;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Add this at the beginning of your body tag -->
+    <div class="loading-screen">
+        <div class="loader-content">
+            <div class="loader">
+                <div class="circle">
+                    <div class="dot"></div>
+                    <div class="outline"></div>
+                </div>
+                <div class="circle">
+                    <div class="dot"></div>
+                    <div class="outline"></div>
+                </div>
+                <div class="circle">
+                    <div class="dot"></div>
+                    <div class="outline"></div>
+                </div>
+                <div class="circle">
+                    <div class="dot"></div>
+                    <div class="outline"></div>
+                </div>
+            </div>
+            <div class="loading-text">Loading...</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Ranch Microbials</a>
+            <ul class="nav-menu">
+                <li><a href="ranch microbials 2.html" class="nav-link">Services</a></li>
+                <li><a href="mailto:ranchmicrobials1@gmail.com" class="nav-link">Contact</a></li>
+                <li><a href="review rm.html" class="nav-link">Reviews</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <canvas id="particles"></canvas>
+        <div class="hero-content">
+            <!-- Updated logo container -->
+            <div class="hero-logo">
+                <img src="vscode/IMG-20230619-WA003.jpg" alt="Ranch Microbials Logo" class="main-logo">
+            </div>
+            <h1>Welcome to Ranch Microbials</h1>
+            <p>Innovating for sustainable agriculture through advanced microbial solutions.</p>
+          
+        </div>
+    </section>
+
+    <!-- About & Mission Section -->
+    <section class="about-mission">
+        <div class="section-background">
+            <div class="bg-pattern"></div>
+            <div class="bg-overlay"></div>
+        </div>
+
+        <!-- About Section -->
+        <div class="about-container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">About Us</span>
+                <h2 class="section-title">Pioneering Agricultural Innovation</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="about-content">
+                <div class="about-image" data-aos="fade-right">
+                    <img src="vscode/sugar-cane-closeup-lush-plantation-background-concept-agriculture-crops-rural-life-farming-harvest_864588-46646.avif" alt="Agricultural Innovation">
+                    <div class="experience-badge">
+                        <span class="text">Determination of Excellence</span>
+                    </div>
+                </div>
+
+                <div class="about-text" data-aos="fade-left">
+                    <div class="text-content">
+                        <h3 class="highlight-title">Bringing change in Agriculture</h3>
+                        <p class="main-text">We are dedicated to transforming agriculture through sustainable microbial solutions and innovative farming practices. Our commitment to excellence drives us to develop products that enhance crop yield while preserving environmental balance.</p>
+                        
+                        <div class="key-points">
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Sustainable Agricultural Solutions</span>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Research-Driven Innovation</span>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Expert Technical Support</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mission Section -->
+        <section class="mission-section">
+            <div class="mission-background">
+                <div class="gradient-overlay"></div>
+                <div class="pattern-dots"></div>
+            </div>
+
+            <div class="mission-container">
+                <div class="mission-header" data-aos="fade-up">
+                    <span class="mission-badge">Our Purpose</span>
+                    <h2 class="mission-title">Our Mission & Values</h2>
+                    <p class="mission-subtitle">Empowering farmers with sustainable solutions for a greener tomorrow</p>
+                </div>
+
+                <div class="mission-grid">
+                    <!-- Core Mission Card -->
+                    <div class="mission-main-card" data-aos="fade-right">
+                        <div class="card-content">
+                            <div class="icon-circle">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h3>Core Mission</h3>
+                            <p>Revolutionizing agriculture through sustainable practices and innovative microbial solutions that enhance crop productivity while preserving our environment.</p>
+                            <ul class="mission-points">
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>Sustainable Farming Solutions</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>Environmental Preservation</span>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check"></i>
+                                    <span>Farmer Empowerment</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Value Cards -->
+                    <div class="values-grid">
+                        <div class="value-card" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="card-icon">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <h4>Innovation</h4>
+                            <p>Pioneering research in agricultural biotechnology</p>
+                        </div>
+
+                        <div class="value-card" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="card-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h4>Sustainability</h4>
+                            <p>Promoting eco-friendly farming practices</p>
+                        </div>
+
+                        <div class="value-card" data-aos="zoom-in" data-aos-delay="300">
+                            <div class="card-icon">
+                                <i class="fas fa-hands-helping"></i>
+                            </div>
+                            <h4>Support</h4>
+                            <p>Dedicated assistance to farming communities</p>
+                        </div>
+
+                        <div class="value-card" data-aos="zoom-in" data-aos-delay="400">
+                            <div class="card-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4>Growth</h4>
+                            <p>Continuous improvement and development</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="grid" >
+          <div class="box" >
+            <span></span>
+            <div class="content">
+              <h2>Our microbes are nature's unseen allies, offering innovative solutions for a healthier, more sustainable world.</h2>
+            </div>
+          </div>
+          <div class="box" >
+            <span></span>
+            <div class="content">
+              <h2>Our microbes play a vital role in enriching soil health by promoting nutrient cycling and improving soil fertility</h2>
+            </div>
+          </div>
+          <div class="box" >
+            <span></span>
+            <div class="content">
+              <h2>Our microbes help achieve higher crop yields by enhancing nutrient uptake and boosting plant resilience.</h2>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <!-- Feature Section with Icons -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Ranch Microbials?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Eco-Friendly Solutions</h3>
+                    <p>Our sustainable microbial products work in harmony with nature to enhance agricultural productivity.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3>Advanced Technology</h3>
+                    <p>Cutting-edge microbial research and development for optimal results.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Proven Results</h3>
+                    <p>Demonstrated success in improving soil health and crop yields.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="100">0</div>
+                    <p>Happy Customers</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="15">0</div>
+                    <p>Products</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="98">0</div>
+                    <p>Success Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Section Animation
+        const sections = document.querySelectorAll('.section');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-container')) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Particle class
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Reset particle if it goes off screen
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(59, 138, 62, ${this.opacity})`; // Green color matching your theme
+                ctx.fill();
+            }
+        }
+
+        // Create particle array
+        const particles = [];
+        const particleCount = 50; // Adjust number of particles
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Animation function
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw particles
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            // Draw connections between nearby particles
+            particles.forEach((particle1, i) => {
+                particles.slice(i + 1).forEach(particle2 => {
+                    const dx = particle1.x - particle2.x;
+                    const dy = particle1.y - particle2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) { // Maximum distance for connection
+                        ctx.beginPath();
+                        ctx.moveTo(particle1.x, particle1.y);
+                        ctx.lineTo(particle2.x, particle2.y);
+                        const opacity = (100 - distance) / 1000;
+                        ctx.strokeStyle = `rgba(59, 138, 62, ${opacity})`; // Green color matching your theme
+                        ctx.stroke();
+                    }
+                });
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        // Start animation
+        animate();
+
+        // Optional: Add mouse interaction
+        let mouse = {
+            x: null,
+            y: null,
+            radius: 150
+        };
+
+        canvas.addEventListener('mousemove', function(event) {
+            mouse.x = event.x;
+            mouse.y = event.y;
+
+            // Add particle movement based on mouse position
+            particles.forEach(particle => {
+                const dx = mouse.x - particle.x;
+                const dy = mouse.y - particle.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < mouse.radius) {
+                    const force = (mouse.radius - distance) / mouse.radius;
+                    const angle = Math.atan2(dy, dx);
+                    particle.x -= Math.cos(angle) * force * 2;
+                    particle.y -= Math.sin(angle) * force * 2;
+                }
+            });
+        });
+
+        // Reset mouse position when mouse leaves canvas
+        canvas.addEventListener('mouseleave', function() {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // Stats Counter Animation
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            
+            stats.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16); // 60fps
+                let current = 0;
+
+                const updateCount = () => {
+                    if (current < target) {
+                        current += increment;
+                        stat.textContent = Math.round(current);
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        stat.textContent = target;
+                    }
+                };
+
+                updateCount();
+            });
+        }
+
+        // Intersection Observer for triggering animations
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('stats-section')) {
+                        animateStats();
+                    }
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe sections
+        document.querySelectorAll('.features-section, .stats-section').forEach(section => {
+            statsObserver.observe(section);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create scroll progress bar
+            const progressBar = document.createElement('div');
+            progressBar.className = 'scroll-progress';
+            document.body.appendChild(progressBar);
+
+            // Scroll progress
+            window.addEventListener('scroll', () => {
+                const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (window.scrollY / windowHeight);
+                progressBar.style.transform = `scaleX(${scrolled})`;
+            });
+
+            // Scroll animations
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.scroll-animate');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight;
+                    
+                    if(elementPosition < screenPosition * 0.85) {
+                        element.classList.add('fade-in');
+                        
+                        // Add random animation class
+                        const animations = ['slide-left', 'slide-right', 'scale-in'];
+                        const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+                        element.classList.add(randomAnimation);
+                    }
+                });
+            };
+
+            // Initial check for elements in view
+            animateOnScroll();
+            
+            // Listen for scroll
+            window.addEventListener('scroll', animateOnScroll);
+
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add floating animation to specific elements
+            document.querySelectorAll('.float-element').forEach(element => {
+                element.style.animation = `float ${3 + Math.random() * 2}s ease-in-out infinite`;
+            });
+
+            // Get elements
+            const loadingScreen = document.querySelector('.loading-screen');
+            const mainContent = document.querySelector('.main-content');
+            
+            // Ensure main content is hidden
+            if (mainContent) {
+                mainContent.style.opacity = '0';
+            }
+
+            // Function to hide loading screen
+            function hideLoadingScreen() {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.visibility = 'hidden';
+                
+                // Show main content
+                if (mainContent) {
+                    mainContent.style.opacity = '1';
+                }
+
+                // Remove loading screen from DOM after transition
+                setTimeout(() => {
+                    loadingScreen.remove();
+                }, 500);
+            }
+
+            // Hide loading screen after 2 seconds
+            setTimeout(hideLoadingScreen, 2000);
+        });
+
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Touch and Responsive Handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu handling
+            const mobileMenuBtn = document.querySelector('.mobile-menu');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navLinks.classList.toggle('active');
+                });
+            }
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.nav-container')) {
+                    navLinks?.classList.remove('active');
+                }
+            });
+
+            // Handle touch events
+            const touchElements = document.querySelectorAll('.touch-target');
+            touchElements.forEach(element => {
+                element.addEventListener('touchstart', function(e) {
+                    this.style.opacity = '0.7';
+                });
+
+                element.addEventListener('touchend', function(e) {
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Prevent double-tap zoom on iOS
+            document.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                const target = e.target;
+                if (target.classList.contains('touch-target')) {
+                    const link = target.closest('a');
+                    if (link) link.click();
+                }
+            });
+
+            // Handle viewport height for mobile browsers
+            function setVH() {
+                let vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            }
+
+            setVH();
+            window.addEventListener('resize', setVH);
+
+            // Optimize scroll performance
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        // Handle scroll-based animations/effects
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            // Handle form inputs on mobile
+            const formInputs = document.querySelectorAll('input, textarea');
+            formInputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    // Scroll to input on mobile
+                    setTimeout(() => {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                });
+            });
+        });
+    </script>
+    
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Company Info -->
+            <div class="footer-section">
+                <h3>Ranch Microbials</h3>
+                <p>Innovating for sustainable agriculture through advanced microbial solutions.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="ranch microbials 2.html">Services</a></li>
+                    <li><a href="review rm.html">Reviews</a></li>
+                    <li><a href="#about">About Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul class="contact-info">
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:ranchmicrobials1@gmail.com">ranchmicrobials1@gmail.com</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+1234567890">+91 94684-19058 </a>
+                    </li>
+                  
+                </ul>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 Ranch Microbials. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
