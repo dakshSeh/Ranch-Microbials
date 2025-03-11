@@ -46,66 +46,65 @@
 
         /* Navigation Styles */
         .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(216, 245, 210, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 5%;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-link {
-            color: var(--dark);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: var(--transition);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .hamburger {
-            display: none;
-            cursor: pointer;
-        }
-
+              position: fixed;
+              top: 0;
+              width: 100%;
+              background: rgba(216, 245, 210, 0.95);
+              backdrop-filter: blur(10px);
+              padding: 1rem 5%;
+              z-index: 1000;
+              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          }
+  
+          .nav-container {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              max-width: 1200px;
+              margin: 0 auto;
+          }
+  
+          .logo {
+              font-size: 1.5rem;
+              font-weight: 700;
+              color: var(--primary);
+              text-decoration: none;
+              transition: var(--transition);
+          }
+  
+          .nav-menu {
+              display: flex;
+              gap: 2rem;
+              list-style: none;
+          }
+  
+          .nav-link {
+              color: var(--dark);
+              text-decoration: none;
+              font-weight: 500;
+              transition: var(--transition);
+              position: relative;
+          }
+  
+          .nav-link::after {
+              content: '';
+              position: absolute;
+              bottom: -5px;
+              left: 0;
+              width: 0;
+              height: 2px;
+              background: var(--primary);
+              transition: var(--transition);
+          }
+  
+          .nav-link:hover::after {
+              width: 100%;
+          }
+  
+          .hamburger {
+              display: none;
+              cursor: pointer;
+          }
         /* Hero Section */
         .hero {
             position: relative;
@@ -278,7 +277,7 @@
 
         .box:nth-child(1)::before,
         .box:nth-child(1)::after {
-            background: linear-gradient(315deg,#2E7D32, #043b0d );
+            background: linear-gradient(315deg,#2E7D32, #bcffc7 );
         }
 
         .box:nth-child(2)::before,
@@ -439,7 +438,6 @@
                 font-size: 2rem;
             }
         }
-
         .footer {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -1651,26 +1649,7 @@
         }
 
         /* Navigation Styles */
-        .nav-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: var(--header-height);
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 100%;
-        }
-
+      
         /* Mobile Menu */
         .mobile-menu {
             display: none;
@@ -2012,8 +1991,8 @@
         </section>
     </section>
 
-    <!-- Services Section -->
-    <section class="section" id="services">
+    <!-- Services Section --><hr>
+    <section class="section" id="services" style="background-color: #333;">
         <div class="grid" >
           <div class="box" >
             <span></span>
@@ -2034,7 +2013,7 @@
             </div>
           </div>
         </div>
-    </section>
+    </section><hr>
 
     <!-- Feature Section with Icons -->
     <section class="features-section">
@@ -2065,7 +2044,7 @@
             </div>
         </div>
     </section>
-
+    
     <!-- Statistics Section -->
     <section class="stats-section">
         <div class="container">
